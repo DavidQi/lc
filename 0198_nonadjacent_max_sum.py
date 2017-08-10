@@ -18,20 +18,22 @@ def nonadjacent_max_sum(nums):
         :rtype: int
     """
     sorted_list = sorted(enumerate(nums), key=lambda i: i[1], reverse=True)
-    if abs(sorted_list[0][0] - sorted_list[1][0]) != 1:  # 0 & 1 are nonadjacent
+    if abs(sorted_list[0][0] - sorted_list[1][0]) != 1:
+        # 0 & 1 are nonadjacent
         return sorted_list[0][0], sorted_list[1][0]
-    else:
-        if abs(sorted_list[0][0] - sorted_list[2][0]) != 1:  # 0 & 2 are nonadjacent
-            return sorted_list[0][0], sorted_list[2][0]
-        else:  # check 3
-            if abs(sorted_list[1][0] - sorted_list[2][0]) != 1:  # 1 & 2 are nonadjacent, will compare
-                if sorted_list[1][1] + sorted_list[2][1] > sorted_list[0][1] + sorted_list[3][1]:
-                    return sorted_list[1][0], sorted_list[2][0]
-            return sorted_list[0][0], sorted_list[3][0]
+    elif abs(sorted_list[0][0] - sorted_list[2][0]) != 1:
+        # 0 & 2 are nonadjacent
+        return sorted_list[0][0], sorted_list[2][0]
+    elif all([abs(sorted_list[1][0] - sorted_list[2][0]) != 1,
+              sorted_list[1][1] + sorted_list[2][1] > sorted_list[0][1] + sorted_list[3][1]]):
+        # 1 & 2 are nonadjacent
+        return sorted_list[1][0], sorted_list[2][0]
+    return sorted_list[0][0], sorted_list[3][0]
 
 
 if __name__ == '__main__':
     import random
-    l = random.sample(range(0, 100000), 20)
-    print(nonadjacent_max_sum(l))
+    l = random.sample(range(0, 10), 5)
+    print(l)
+    print(nonadjacent_max_sum([0, 6, 9, 7, 5]))
 
