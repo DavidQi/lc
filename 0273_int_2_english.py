@@ -36,7 +36,7 @@ def int_2_english(num):
             for i, w in enumerate(lst_units, 1):
                 if n < 1000 ** (i+1):
                     return translate(n//1000 ** i) + [w] + translate(n % 1000 ** i)
-    return ' '.join(translate(num))
+    return ' '.join(translate(num)) or 'Zero'
 
 if __name__ == '__main__':
-    print(int_2_english(1550200000))
+    print(int_2_english(0))
