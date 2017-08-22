@@ -24,10 +24,11 @@ Explanation:
 
 Note: The number of boxes n would not exceed 100.
 """
+from itertools import groupby
 
 
-# Is that HARD?? Just sum the square of count for each item
-def sum_square_of_count(boxes):
+# Is that HARD?? Just sum the square of count for each item. Result oriented
+def result_oriented_calc(boxes):
     """
     :type boxes: List[int]
     :rtype: int
@@ -35,5 +36,25 @@ def sum_square_of_count(boxes):
     return sum([boxes.count(i) ** 2 for i in set(boxes)])
 
 
+# Procedure oriented
+def procedure_oriented_calc(boxes):
+    """
+    :type boxes: List[int]
+    :rtype: int
+    """
+    def sum_boxes():
+        items, lst_items = list(zip(*[(k, list(v)) for k, v in groupby(boxes)]))
+        lst_boxes = list(lst_items)
+        for i in set(items):
+            if items.count(i) == 1:
+                return len(lst_boxes.pop(items.index(i))) ** 2, sum(lst_boxes, [])
+
+    r = 0
+    while boxes:
+        p, boxes = sum_boxes()
+        r += p
+    return r
+
+
 if __name__ == '__main__':
-    print(sum_square_of_count([1, 3, 2, 2, 2, 3, 4, 3, 1]))
+    print(procedure_oriented_calc([1, 3, 2, 2, 2, 3, 4, 3, 1]))
