@@ -30,6 +30,10 @@ Explanation: It's the substring "abc" four times. (And the substring "abcabc" tw
 
 
 def get_factors(n):
+#     Using reduce function:
+#     from functools import reduce
+#     factors = reduce(list.__add__, ([i, n//i] for i in range(1, int(n**0.5) + 1) if n % i == 0))
+    
     r = []
     for i in range(2, int(n**0.5)+1):  # not include 1 and itself, int(n**0.5) 表示不大于n的平方根的最大整数
         if n % i == 0 and i not in r:
